@@ -33,6 +33,25 @@ export const updateCategorySchema = z.object({
   is_archived: z.boolean().optional(),
 });
 
+/**
+ * Validation schema for creating a new financial Transaction.
+ * Enforces integer-cent currency precision and valid date/category relations.
+ *
+ * Field Constraints:
+ * - `type`: Required transaction type ('expense' | 'income').
+ * - `amount_cents`: Required positive integer representing monetary value in integer cents (e.g. $45.99 -> 4599 cents).
+ * - `description`: Required non-empty trimmed string, 1 to 255 characters.
+ * - `category_id`: Optional UUID of associated category, nullable.
+ * - `transaction_date`: Optional ISO date string formatted as YYYY-MM-DD.
+ *
+ * @example
+ * createTransactionSchema.parse({
+ *   type: 'expense',
+ *   amount_cents: 4599,
+ *   description: 'Domain Registration',
+ *   transaction_date: '2026-09-29'
+ * });
+ */
 export const createTransactionSchema = z.object({
   type: transactionTypeSchema,
   amount_cents: z
@@ -51,6 +70,15 @@ export const createTransactionSchema = z.object({
     .optional(),
 });
 
+/**
+ * Validation schema for updating an existing financial Transaction.
+ * All fields are optional partials.
+ *
+ * @example
+ * updateTransactionSchema.parse({
+ *   amount_cents: 5200
+ * });
+ */
 export const updateTransactionSchema = z.object({
   type: transactionTypeSchema.optional(),
   amount_cents: z
