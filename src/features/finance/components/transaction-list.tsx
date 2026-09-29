@@ -225,7 +225,11 @@ export function TransactionList({
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <h2 className="text-lg font-semibold text-white">Transaction History</h2>
-          <p className="text-xs text-zinc-400 mt-0.5">
+          <p
+            className="text-xs text-zinc-400 mt-0.5"
+            role="status"
+            aria-live="polite"
+          >
             {filteredTransactions.length} {filteredTransactions.length === 1 ? 'transaction' : 'transactions'} in selected period
           </p>
         </div>
