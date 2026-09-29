@@ -297,6 +297,32 @@ export function calculateMonthlyTrends(
 }
 
 /**
+ * Calculates the percentage change between two monetary amounts in cents.
+ * Handles division by zero safely by returning 0 when oldValueCents is 0.
+ * Rounds the result to two decimal places.
+ *
+ * @param oldValueCents - The baseline amount in integer cents.
+ * @param newValueCents - The new amount in integer cents.
+ * @returns The percentage change rounded to two decimal places.
+ * @example
+ * calculatePercentageChange(10000, 15000); // 50 (50% increase)
+ * calculatePercentageChange(10000, 8000);  // -20 (20% decrease)
+ * calculatePercentageChange(0, 5000);      // 0 (safe zero division)
+ */
+export function calculatePercentageChange(
+  oldValueCents: number,
+  newValueCents: number
+): number {
+  if (oldValueCents === 0) {
+    return 0;
+  }
+
+  const change = ((newValueCents - oldValueCents) / Math.abs(oldValueCents)) * 100;
+  const rounded = Math.round(change * 100) / 100;
+  return rounded === 0 ? 0 : rounded;
+}
+
+/**
  * Default starter categories for new users.
  */
 export const DEFAULT_FINANCE_CATEGORIES: Array<{

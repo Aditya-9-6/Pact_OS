@@ -6,6 +6,7 @@ import {
   calculateCategoryBreakdown,
   calculateMonthlyTrends,
   formatMonthLabel,
+  calculatePercentageChange,
   FinanceTransaction,
   FinanceCategory,
 } from '../src/lib/money';
@@ -286,6 +287,25 @@ const invalidCatColor = createCategorySchema.safeParse({
 assert.strictEqual(invalidCatColor.success, false, 'Invalid color tag must be rejected');
 
 console.log('✅ Zod domain schemas verified.');
+
+// 8. Percentage Change Calculations
+console.log('8. Testing calculatePercentageChange helper...');
+
+// Positive growth tests
+assert.strictEqual(calculatePercentageChange(10000, 15000), 50, '10000 to 15000 must be 50% growth');
+assert.strictEqual(calculatePercentageChange(3000, 4000), 33.33, '3000 to 4000 must round to 33.33%');
+
+// Percentage decrease tests
+assert.strictEqual(calculatePercentageChange(10000, 8000), -20, '10000 to 8000 must be -20% change');
+assert.strictEqual(calculatePercentageChange(3000, 2000), -33.33, '3000 to 2000 must round to -33.33%');
+
+// Zero division and edge cases
+assert.strictEqual(calculatePercentageChange(0, 5000), 0, 'oldValueCents = 0 must return 0 safely');
+assert.strictEqual(calculatePercentageChange(0, 0), 0, 'oldValueCents = 0 and newValueCents = 0 must return 0 safely');
+assert.strictEqual(calculatePercentageChange(0, -5000), 0, 'oldValueCents = 0 and negative newValueCents must return 0 safely');
+assert.strictEqual(calculatePercentageChange(5000, 5000), 0, 'Identical values must yield 0% change');
+
+console.log('✅ calculatePercentageChange helper verified.');
 
 console.log('\n================================================================');
 console.log('🎉 ALL PHASE 4I-2 FINANCE DOMAIN & VALIDATION TESTS PASSED');
