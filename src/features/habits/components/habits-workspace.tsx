@@ -127,6 +127,7 @@ export function HabitsWorkspace({ initialData }: HabitsWorkspaceProps) {
         <div className="flex items-center gap-2.5">
           <button
             type="button"
+            aria-label="Create new routine"
             onClick={handleOpenCreateRoutine}
             className="px-3.5 py-2 rounded-xl text-xs font-medium bg-zinc-900 border border-white/[0.1] text-zinc-200 hover:bg-zinc-800 hover:text-white flex items-center gap-1.5 transition-all"
           >
@@ -136,6 +137,7 @@ export function HabitsWorkspace({ initialData }: HabitsWorkspaceProps) {
 
           <button
             type="button"
+            aria-label="Create new habit"
             onClick={handleOpenCreateHabit}
             className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#d4af37] text-black hover:bg-[#e2c056] shadow-lg shadow-[#d4af37]/20 flex items-center gap-1.5 transition-all"
           >
@@ -154,6 +156,7 @@ export function HabitsWorkspace({ initialData }: HabitsWorkspaceProps) {
         <div className="flex items-center gap-1.5 overflow-x-auto">
           <button
             type="button"
+            aria-label="Switch to today's focus habits view"
             onClick={() => setUrlState((prev) => ({ ...prev, tab: 'today' }))}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 cursor-pointer ${
               activeTab === 'today'
@@ -167,6 +170,7 @@ export function HabitsWorkspace({ initialData }: HabitsWorkspaceProps) {
 
           <button
             type="button"
+            aria-label="Switch to all habits view"
             onClick={() => setUrlState((prev) => ({ ...prev, tab: 'all' }))}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 cursor-pointer ${
               activeTab === 'all'
@@ -180,6 +184,7 @@ export function HabitsWorkspace({ initialData }: HabitsWorkspaceProps) {
 
           <button
             type="button"
+            aria-label="Switch routine view mode"
             onClick={() => setUrlState((prev) => ({ ...prev, tab: 'routines' }))}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 cursor-pointer ${
               activeTab === 'routines'
@@ -194,11 +199,12 @@ export function HabitsWorkspace({ initialData }: HabitsWorkspaceProps) {
           {initialData.archivedHabits.length > 0 && (
             <button
               type="button"
+              aria-label="Switch to archived habits view"
               onClick={() => setUrlState((prev) => ({ ...prev, tab: 'archived' }))}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 cursor-pointer ${
                 activeTab === 'archived'
                   ? 'bg-[#d4af37]/20 text-[#f3e198] border border-[#d4af37]/50'
-                  : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04]'
+                : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04]'
               }`}
             >
               <Archive className="w-3.5 h-3.5" />
@@ -212,6 +218,7 @@ export function HabitsWorkspace({ initialData }: HabitsWorkspaceProps) {
           <div className="flex items-center gap-1.5 overflow-x-auto text-xs">
             <button
               type="button"
+              aria-label="Show all categories"
               onClick={() => setUrlState((prev) => ({ ...prev, category: 'all' }))}
               className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
                 selectedCategory === 'all'
@@ -225,6 +232,7 @@ export function HabitsWorkspace({ initialData }: HabitsWorkspaceProps) {
               <button
                 key={cat}
                 type="button"
+                aria-label={`Filter habits by ${cat} category`}
                 onClick={() => setUrlState((prev) => ({ ...prev, category: cat }))}
                 className={`px-2.5 py-1 rounded-lg transition-all capitalize cursor-pointer ${
                   selectedCategory === cat
@@ -285,6 +293,7 @@ export function HabitsWorkspace({ initialData }: HabitsWorkspaceProps) {
                 </p>
                 <button
                   type="button"
+                  aria-label="Create new habit"
                   onClick={handleOpenCreateHabit}
                   className="mt-4 px-4 py-2 rounded-xl text-xs font-semibold bg-[#d4af37] text-black hover:bg-[#e2c056]"
                 >
@@ -348,6 +357,7 @@ export function HabitsWorkspace({ initialData }: HabitsWorkspaceProps) {
               </p>
               <button
                 type="button"
+                aria-label="Create new routine"
                 onClick={handleOpenCreateRoutine}
                 className="mt-4 px-4 py-2 rounded-xl text-xs font-semibold bg-[#d4af37] text-black hover:bg-[#e2c056]"
               >
@@ -387,6 +397,7 @@ export function HabitsWorkspace({ initialData }: HabitsWorkspaceProps) {
 
               <button
                 type="button"
+                aria-label={`Restore habit ${template.name}`}
                 onClick={() => handleUnarchive(template.id)}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700"
               >
