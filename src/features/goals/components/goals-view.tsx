@@ -163,10 +163,11 @@ export function GoalsView({ initialGoals, error }: GoalsViewProps) {
             return (
               <button
                 key={value}
+                type="button"
                 role="tab"
                 aria-selected={isActive}
                 onClick={() => setUrlState((prev) => ({ ...prev, status: value }))}
-                className={`px-3 py-1.5 rounded-lg font-medium transition-colors cursor-pointer whitespace-nowrap focus-visible:outline-2 focus-visible:outline-[#d4af37] ${
+                className={`px-3 py-1.5 rounded-lg font-medium transition-colors cursor-pointer whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 ${
                   isActive
                     ? 'bg-zinc-800 text-zinc-100 border border-zinc-700/80 shadow-sm'
                     : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'
@@ -296,16 +297,18 @@ function EmptyState({
         <div className="flex items-center gap-2">
           {hasSearch && (
             <button
+              type="button"
               onClick={onClearSearch}
-              className="px-3 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 border border-zinc-700/60 transition-colors cursor-pointer"
+              className="px-3 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 border border-zinc-700/60 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400"
             >
               Clear search
             </button>
           )}
           {hasFilter && (
             <button
+              type="button"
               onClick={onClearFilter}
-              className="px-3 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 border border-zinc-700/60 transition-colors cursor-pointer"
+              className="px-3 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 border border-zinc-700/60 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400"
             >
               Show all
             </button>
@@ -313,8 +316,9 @@ function EmptyState({
         </div>
       ) : (
         <button
+          type="button"
           onClick={onCreateGoal}
-          className="inline-flex items-center gap-2 bg-[#d4af37] hover:bg-[#e5c158] text-zinc-950 font-semibold px-4 py-2 rounded-xl text-xs transition-colors shadow-md cursor-pointer"
+          className="inline-flex items-center gap-2 bg-[#d4af37] hover:bg-[#e5c158] text-zinc-950 font-semibold px-4 py-2 rounded-xl text-xs transition-colors shadow-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af37] focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
         >
           <Plus className="w-4 h-4" aria-hidden="true" />
           <span>Create Your First Goal</span>
