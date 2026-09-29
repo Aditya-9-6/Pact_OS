@@ -12,9 +12,7 @@ import {
 } from '../src/lib/money';
 import {
   createCategorySchema,
-  updateCategorySchema,
   createTransactionSchema,
-  updateTransactionSchema,
 } from '../src/lib/validations/finance';
 
 console.log('================================================================');
