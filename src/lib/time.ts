@@ -665,3 +665,32 @@ export function getMonthGridForDate(
   };
 }
 
+/**
+ * Computes remaining whole days until a target deadline date.
+ * Returns 0 if the target date is today or in the past.
+ *
+ * @param targetDate Target date as Date object or ISO string.
+ * @param clock Optional Clock implementation for deterministic temporal testing.
+ * @returns Non-negative integer representing remaining whole days.
+ *
+ * @example
+ * getDaysRemaining('2026-12-31T23:59:59Z'); // e.g. 93
+ * getDaysRemaining(new Date(Date.now() - 1000)); // 0
+ */
+export function getDaysRemaining(
+  targetDate: Date | string,
+  clock: Clock = defaultClock,
+): number {
+  const target = typeof targetDate === 'string' ? new Date(targetDate) : targetDate;
+  if (isNaN(target.getTime())) {
+    return 0;
+  }
+  const now = clock.now();
+  const diffMs = target.getTime() - now.getTime();
+  if (diffMs <= 0) {
+    return 0;
+  }
+  return Math.floor(diffMs / (1000 * 60 * 60 * 24));
+}
+
+

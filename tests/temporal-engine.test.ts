@@ -9,6 +9,7 @@ import {
   getDeadlineStatus,
   utcToDatetimeLocalInput,
   getDefaultLocalDeadline,
+  getDaysRemaining,
 } from '../src/lib/time';
 
 function runTemporalEngineTestSuite() {
@@ -228,7 +229,26 @@ function runTemporalEngineTestSuite() {
   const existingDbUtc = '2026-09-18 16:55:00+00';
   assert.strictEqual(utcToDatetimeLocalInput(existingDbUtc, 'Asia/Kolkata'), '2026-09-18T22:25');
   assert.strictEqual(utcToLocal(existingDbUtc, 'Asia/Kolkata'), 'Sep 18, 2026, 10:25 PM');
-  console.log('✅ Case 9: Existing task stored in DB displayed as 10:25 PM and prefilled as 22:25 in Asia/Kolkata.\n');
+  // CASE 10 — getDaysRemaining helper function (#169, #177)
+  const baseClock = new TestClock('2026-09-18T12:00:00.000Z');
+
+  // Future date: exactly 5 days ahead
+  const futureDate = new Date('2026-09-23T12:00:00.000Z');
+  assert.strictEqual(getDaysRemaining(futureDate, baseClock), 5, 'Future date 5 days ahead must return 5');
+  assert.strictEqual(getDaysRemaining('2026-09-23T12:00:00.000Z', baseClock), 5, 'String future date must return 5');
+
+  // Past date: returns 0
+  const pastDate = new Date('2026-09-17T12:00:00.000Z');
+  assert.strictEqual(getDaysRemaining(pastDate, baseClock), 0, 'Past date must return 0');
+  assert.strictEqual(getDaysRemaining('2026-09-10T00:00:00.000Z', baseClock), 0, 'Past string date must return 0');
+
+  // Today's date: same calendar day returns 0
+  const sameDayLater = new Date('2026-09-18T18:00:00.000Z');
+  assert.strictEqual(getDaysRemaining(sameDayLater, baseClock), 0, "Today's date must return 0");
+
+  // Invalid date: returns 0 safely
+  assert.strictEqual(getDaysRemaining('invalid-date', baseClock), 0, 'Invalid date must return 0');
+  console.log('✅ Case 10: getDaysRemaining helper verified for future, past, today, and invalid inputs.\n');
 
   console.log('================================================================');
   console.log('🎉 ALL TEMPORAL ENGINE & TIMEZONE UNIT TESTS PASSED CLEANLY');
